@@ -9,7 +9,7 @@ public class DBConnectionManager {
 	private static String user="root";
 	
 	public static void getConnection() {
-		
+		String name="john";
 	}
 	
 }
