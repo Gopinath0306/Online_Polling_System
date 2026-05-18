@@ -1,16 +1,12 @@
-// ApplicationUtil.java
-package com.polling.util;
-
+package com.util;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.polling.db.DBConnectionManager;
-
+//Application.util
+import com.management.*;
 public class ApplicationUtil {
-
-    // Generate Voter ID
+ //Generate Vote ID
     public static String generateVoterId() {
 
         String voterId = "V1001";
@@ -51,8 +47,7 @@ public class ApplicationUtil {
 
             Statement st = con.createStatement();
 
-            ResultSet rs = st.executeQuery(
-                    "select nominee_id from nominee order by nominee_id desc limit 1");
+            ResultSet rs = st.executeQuery("select nominee_id from nominee order by nominee_id desc limit 1");
 
             if (rs.next()) {
 
@@ -81,8 +76,7 @@ public class ApplicationUtil {
 
             Statement st = con.createStatement();
 
-            ResultSet rs = st.executeQuery(
-                    "select vote_id from vote order by vote_id desc limit 1");
+            ResultSet rs = st.executeQuery("select vote_id from vote order by vote_id desc limit 1");
 
             if (rs.next()) {
 
