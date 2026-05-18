@@ -4,13 +4,26 @@ public class Voter
 {
 	private String voterId;
     private String voterName;
-    private Date dob;
+	private Date dob;
     private int age;
     private String loginId;
    	private String password;
     private String address;
     private String district;
     private long mobileNumber;
+    public Voter(String voterId, String voterName, Date dob, int age, String loginId, String password, String address, String district, long mobileNumber) 
+    {
+		super();
+		this.voterId = voterId;
+		this.voterName = voterName;
+		this.dob = dob;
+		this.age = age;
+		this.loginId = loginId;
+		this.password = password;
+		this.address = address;
+		this.district = district;
+		this.mobileNumber = mobileNumber;
+	}
     public String getVoterId() 
     {
 		return voterId;
@@ -83,10 +96,5 @@ public class Voter
 	public void setMobileNumber(long mobileNumber) 
 	{
 		this.mobileNumber = mobileNumber;
-	}
-	public Voter() 
-	{
-		// TODO Auto-generated constructor stub
-		// 
 	}
 }
