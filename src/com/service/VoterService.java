@@ -1,68 +1,41 @@
 package com.service;
-
-import com.management.VoterManagement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import com.model.Voter;
-
-public class VoterService {
-
-    VoterManagement management = new VoterManagement();
-
-    // Generate Voter ID
-    public String generateVoterId() {
-
-        return "V" + UUID.randomUUID().toString().substring(0,5);
-    }
-
-    // Validate Age
-    public boolean validateAge(int age) {
-
-        return age >= 18;
-    }
-
-    // Add Voter
-    public boolean addVoter(Voter voter) {
-
-        if(!validateAge(voter.getAge())) {
-
-            System.out.println("Voter age must be 18 or above");
-
-            return false;
+import com.management.DBConnectionManager;
+public class VoterService 
+{
+    public void addVoter(Voter voter) 
+    {
+        try 
+        {
+            Connection connection = DBConnectionManager.getConnection();
+            String query = "insert into voter values(?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, voter.getVoterId());
+            pstmt.setString(2, voter.getVoterName());
+            java.sql.Date sqlDate = new java.sql.Date(voter.getDob().getTime());
+            pstmt.setDate(3, sqlDate);
+            pstmt.setInt(4, voter.getAge());
+            pstmt.setString(5, voter.getLoginId());
+            pstmt.setString(6, voter.getPassword());
+            pstmt.setString(7, voter.getAddress());
+            pstmt.setString(8, voter.getDistrict());
+            pstmt.setLong(9, voter.getMobileNumber());
+            int rows = pstmt.executeUpdate();
+            if(rows > 0) 
+            {
+                System.out.println("Voter Added Successfully");
+            }
+            else 
+            {
+                System.out.println("Voter Not Added");
+            }
         }
-
-        // Generate Voter ID
-        voter.setVoterId(generateVoterId());
-
-        // Insert into Database
-        return management.insertVoter(voter);
-    }
-
-    // Search Voter By ID
-    public Voter searchVoter(String voterId) {
-
-        return management.getVoterById(voterId);
-    }
-
-    // Modify Address
-    public boolean modifyAddress(String voterId,String newAddress) {
-
-        return management.updateAddress(voterId,newAddress);
-    }
-
-    // Modify Mobile Number
-    public boolean modifyMobile(String voterId, long newMobile) {
-
-        return management.updateMobile(voterId,newMobile);
-    }
-
-    // Remove Voter
-    public boolean removeVoter(String voterId) {
-
-        return management.deleteVoter(voterId);
-    }
-
-    // Get District Wise Voters
-    public List<Voter> getDistrictWiseVoters(String district) {
-
-        return management.getVotersByDistrict(district);
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
     }
 }
