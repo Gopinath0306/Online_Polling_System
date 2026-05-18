@@ -7,6 +7,7 @@ import com.management.VoteManagement;
 import com.model.Vote;
 
 public class VoteService {
+	private int age;
 
     VoteManagement vm =
             new VoteManagement();
