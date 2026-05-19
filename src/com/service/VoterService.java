@@ -12,18 +12,18 @@ public class VoterService
         {
             Connection connection = DBConnectionManager.getConnection();
             String query = "insert into voter values(?,?,?,?,?,?,?,?,?)";
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setString(1, voter.getVoterId());
-            pstmt.setString(2, voter.getVoterName());
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, voter.getVoterId());
+            ps.setString(2, voter.getVoterName());
             java.sql.Date sqlDate = new java.sql.Date(voter.getDob().getTime());
-            pstmt.setDate(3, sqlDate);
-            pstmt.setInt(4, voter.getAge());
-            pstmt.setString(5, voter.getLoginId());
-            pstmt.setString(6, voter.getPassword());
-            pstmt.setString(7, voter.getAddress());
-            pstmt.setString(8, voter.getDistrict());
-            pstmt.setLong(9, voter.getMobileNumber());
-            int rows = pstmt.executeUpdate();
+            ps.setDate(3, sqlDate);
+            ps.setInt(4, voter.getAge());
+            ps.setString(5, voter.getLoginId());
+            ps.setString(6, voter.getPassword());
+            ps.setString(7, voter.getAddress());
+            ps.setString(8, voter.getDistrict());
+            ps.setLong(9, voter.getMobileNumber());
+            int rows = ps.executeUpdate();
             if(rows > 0) 
             {
                 System.out.println("Voter Added Successfully");
